@@ -1,23 +1,23 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { Occurrence } from '../types';
+import { Ocorrencia } from '../types';
 import { RiskBadge } from './RiskBadge';
 
 interface Props {
-  occurrence: Occurrence;
+  ocorrencia: Ocorrencia;
   onPress: () => void;
 }
 
-export const OccurrenceCard = ({ occurrence, onPress }: Props) => (
+export const OcorrenciaCard = ({ ocorrencia, onPress }: Props) => (
   <TouchableOpacity style={styles.card} onPress={onPress}>
     <View style={styles.header}>
-      <Text style={styles.title} numberOfLines={1}>
-        {occurrence.title}
+      <Text style={styles.descricao} numberOfLines={2}>
+        {ocorrencia.descricao}
       </Text>
-      <RiskBadge risk={occurrence.risk} />
+      <RiskBadge risco={ocorrencia.risco} />
     </View>
-    <Text style={styles.location}>{occurrence.location}</Text>
-    <Text style={styles.date}>{occurrence.date}</Text>
+    <Text style={styles.local}>{ocorrencia.local}</Text>
+    <Text style={styles.data}>{ocorrencia.data}</Text>
   </TouchableOpacity>
 );
 
@@ -36,10 +36,11 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 6,
+    alignItems: 'flex-start',
+    marginBottom: 8,
+    gap: 8,
   },
-  title:    { fontSize: 16, fontWeight: '600', flex: 1, marginRight: 8 },
-  location: { fontSize: 13, color: '#64748b' },
-  date:     { fontSize: 12, color: '#94a3b8', marginTop: 4 },
+  descricao: { fontSize: 15, fontWeight: '600', flex: 1, color: '#0f172a' },
+  local:     { fontSize: 13, color: '#64748b' },
+  data:      { fontSize: 12, color: '#94a3b8', marginTop: 4 },
 });

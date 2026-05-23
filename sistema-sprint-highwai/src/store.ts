@@ -1,9 +1,9 @@
 import { createContext, useContext } from 'react';
-import { Occurrence } from './types';
+import { Ocorrencia } from './types';
 
 export interface StoreData {
-  occurrences: Occurrence[];
-  addOccurrence: (data: Omit<Occurrence, 'id' | 'date'>) => void;
+  ocorrencias: Ocorrencia[];
+  addOcorrencia: (data: Omit<Ocorrencia, 'id' | 'data'>) => void;
 }
 
 export const StoreContext = createContext<StoreData>({} as StoreData);

@@ -1,7 +1,7 @@
-import { Occurrence } from './index';
+import { Ocorrencia } from './index';
 
 export type RootStackParamList = {
-  List: undefined;
-  NewOccurrence: undefined;
-  Detail: { occurrence: Occurrence };
+  Lista: undefined;
+  NovaOcorrencia: undefined;
+  Detalhe: { ocorrencia: Ocorrencia };
 };

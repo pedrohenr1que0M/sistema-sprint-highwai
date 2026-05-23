@@ -1,10 +1,9 @@
-export type RiskLevel = 'baixo' | 'medio' | 'alto';
+export type NivelRisco = 'baixo' | 'medio' | 'alto';
 
-export interface Occurrence {
-  id: string;
-  title: string;
-  description: string;
-  risk: RiskLevel;
-  date: string;
-  location: string;
-}
+export type Ocorrencia = {
+  id: number;
+  descricao: string;
+  local: string;
+  risco: NivelRisco;
+  data: string;
+};

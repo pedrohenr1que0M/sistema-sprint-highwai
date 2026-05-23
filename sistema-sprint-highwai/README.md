@@ -1,130 +1,188 @@
-# Sistema Sprint HighwAI
+## `README.md`
 
-Aplicativo cross-platform desenvolvido com **Expo**, **React Native** e **TypeScript** para gerenciamento de ocorrências de forma simples e intuitiva.
+```markdown
+# Sistema de Ocorrências — Motiva
 
-## Visão Geral
+Aplicativo mobile desenvolvido para registro, acompanhamento e classificação
+de ocorrências operacionais. Construído com React Native e Expo, utilizando
+TypeScript para garantir tipagem segura em todo o projeto.
 
-Este projeto é um sistema de registro de ocorrências que permite:
-- listar ocorrências cadastradas;
-- cadastrar novas ocorrências com título, local, descrição e nível de risco;
-- visualizar detalhes completos de cada ocorrência;
-- usar navegação entre telas com React Navigation.
+---
 
-O app foi construído com foco em mobile, mas também é compatível com web via **Expo Web**.
+## Demonstração do Fluxo
 
-## Funcionalidades
+Lista de Ocorrências → Nova Ocorrência → Salvar → Ver na Lista → Detalhe
 
-- Tela de listagem de ocorrências
-- Registro de nova ocorrência
-- Visualização de detalhes de ocorrência
-- Identificação visual de nível de risco com badges
-- Persistência em memória apenas durante a execução (estado local)
+---
 
-## Estrutura do Projeto
+## Como rodar o projeto
 
-- `App.tsx` - ponto de entrada da aplicação e provedor de navegação
-- `src/store.ts` - contexto global de estado para gerenciar ocorrências
-- `src/screens/ListScreen.tsx` - tela de listagem de ocorrências
-- `src/screens/NewOccurrenceScreen.tsx` - tela de cadastro de novas ocorrências
-- `src/screens/DetailScreen.tsx` - tela de detalhes da ocorrência
-- `src/components/OccurrenceCard.tsx` - cartão de apresentação da ocorrência
-- `src/components/RiskBadge.tsx` - componente visual de nível de risco
-- `src/types/` - tipos TypeScript e parâmetros de navegação
+### Pré-requisitos
 
-## Modelo de Dados
+- Node.js instalado (versão 18 ou superior)
+- Expo CLI instalado globalmente:
+  npm install -g expo-cli
+- Aplicativo Expo Go no celular (Android ou iOS)
 
-O app usa o seguinte tipo principal:
+### Passo a passo
 
-```ts
-export type RiskLevel = 'baixo' | 'medio' | 'alto';
+1. Clone o repositório:
+   git clone https://github.com/seu-usuario/sistema-sprint-highwai.git
 
-export interface Occurrence {
-  id: string;
-  title: string;
-  description: string;
-  risk: RiskLevel;
-  date: string;
-  location: string;
-}
+2. Acesse a pasta do projeto:
+   cd sistema-sprint-highwai
+
+3. Instale as dependências:
+   npm install
+
+4. Instale os pacotes de navegação:
+   npx expo install @react-navigation/native @react-navigation/native-stack react-native-screens react-native-safe-area-context
+
+5. Inicie o servidor de desenvolvimento:
+   npx expo start
+
+6. Escaneie o QR Code exibido no terminal com o app Expo Go.
+
+---
+
+## O que o app faz
+
+O aplicativo permite que colaboradores da Motiva registrem e acompanhem
+ocorrências operacionais no ambiente de trabalho.
+
+### Funcionalidades
+
+- Listar todas as ocorrências cadastradas
+- Cadastrar nova ocorrência com descrição, local e nível de risco
+- Classificar o risco em três níveis: Baixo, Médio ou Alto
+- Visualizar o detalhe completo de cada ocorrência
+- Dados mockados carregados automaticamente ao abrir o app
+
+---
+
+## Estrutura do projeto
+
+```
+sistema-sprint-highwai/
+├── src/
+│   ├── screens/
+│   │   ├── ListaScreen.tsx
+│   │   ├── NovaOcorrenciaScreen.tsx
+│   │   └── DetalheScreen.tsx
+│   ├── components/
+│   │   ├── OcorrenciaCard.tsx
+│   │   └── RiskBadge.tsx
+│   ├── types/
+│   │   ├── index.ts
+│   │   └── navigation.ts
+│   ├── data/
+│   │   └── ocorrencias.ts
+│   └── store.ts
+├── App.tsx
+├── README.md
+└── package.json
 ```
 
-A lista inicial (`INITIAL`) contém exemplos de ocorrência para demonstração:
-- Vazamento na tubulação
-- Iluminação defeituosa
+---
+
+## Modelagem de dados
+
+O tipo central da aplicação é Ocorrencia, definido em src/types/index.ts:
+
+```ts
+export type NivelRisco = 'baixo' | 'medio' | 'alto';
+
+export type Ocorrencia = {
+  id: number;
+  descricao: string;
+  local: string;
+  risco: NivelRisco;
+  data: string;
+};
+```
+
+---
+
+## Como os dados estão mockados
+
+Os dados iniciais ficam em src/data/ocorrencias.ts como um array estático
+do tipo Ocorrencia[]. Eles são carregados no estado da aplicação ao iniciar.
+
+Ao cadastrar uma nova ocorrência pelo app, ela é adicionada ao estado via
+useState no App.tsx e exibida imediatamente no topo da lista.
+
+Os dados não persistem ao fechar o app. Para persistência, a próxima
+evolução seria integrar o AsyncStorage.
+
+---
 
 ## Navegação
 
-A navegação é feita com **React Navigation Native Stack** e possui as seguintes rotas:
+O app utiliza React Navigation com NativeStackNavigator.
 
-- `List` - tela inicial com lista de ocorrências
-- `NewOccurrence` - formulário para adicionar ocorrência
-- `Detail` - exibe detalhes de uma ocorrência selecionada
-
-## Instalação
-
-1. Instale as dependências do projeto:
-
-```bash
-npm install
-```
-
-2. Instale as dependências Expo se necessário:
-
-```bash
-npx expo install
-```
-
-## Execução
-
-Execute o app com os scripts padrão do Expo:
-
-- `npm run start` - inicia o Expo DevTools
-- `npm run android` - abre no emulador ou dispositivo Android
-- `npm run ios` - abre no emulador ou dispositivo iOS
-- `npm run web` - abre no navegador
-
-## Dependências principais
-
-- `expo` - plataforma para apps React Native
-- `react` / `react-native` - bibliotecas principais da aplicação
-- `@react-navigation/native` - biblioteca de navegação
-- `@react-navigation/native-stack` - pilha de navegação nativa
-- `react-native-safe-area-context` - suporte a áreas seguras em dispositivos
-- `react-native-screens` - otimização de telas nativas
-- `react-native-web` - compatibilidade com web
-
-## Tipos e Contexto
-
-O app utiliza TypeScript para definir tipos fortes e evitar erros comuns.
-O estado global de ocorrências é compartilhado usando `StoreContext`, com as propriedades:
-
-- `occurrences: Occurrence[]`
-- `addOccurrence: (data: Omit<Occurrence, 'id' | 'date'>) => void`
-
-## Fluxo do Usuário
-
-1. O usuário acessa a tela de `Ocorrências` e vê a lista atual.
-2. Ao tocar em `+ Nova`, ele vai para a tela de cadastro.
-3. O usuário preenche `Título`, `Local`, `Descrição` e seleciona o nível de risco.
-4. Ao salvar, a ocorrência é adicionada à lista e a tela volta para a listagem.
-5. Ao tocar em uma ocorrência, o app exibe os detalhes completos.
-
-## Customização
-
-Você pode estender o projeto com:
-- armazenamento permanente (AsyncStorage, SQLite, Firebase, etc.)
-- edição e exclusão de ocorrências
-- filtro e pesquisa por risco, data e local
-- autenticação de usuário
-- conectividade com backend
-
-## Observações
-
-- O registro de ocorrências é mantido apenas em memória, portanto os dados são perdidos ao reiniciar o app.
-- A interface foi projetada para ser limpa, com botões e campos acessíveis.
-
-## Licença
-
-Este projeto está sob a licença do repositório (`LICENSE`).
+Rota              | Tela                     | Descricao
+------------------|--------------------------|----------------------------------
+Lista             | ListaScreen              | Lista todas as ocorrencias
+NovaOcorrencia    | NovaOcorrenciaScreen     | Formulario de cadastro
+Detalhe           | DetalheScreen            | Detalhe de uma ocorrencia
 
 ---
+
+## Gerenciamento de estado
+
+O estado global é gerenciado via React Context API, definido em
+src/store.ts e instanciado no App.tsx.
+
+```ts
+const [ocorrencias, setOcorrencias] = useState<Ocorrencia[]>(ocorrenciasMock);
+```
+
+O contexto expõe:
+- ocorrencias: array com todas as ocorrências
+- addOcorrencia: função para adicionar uma nova entrada
+
+---
+
+## Componentes
+
+OcorrenciaCard
+Exibe o resumo de uma ocorrência na lista: descrição, local, data e badge
+de risco. Recebe ocorrencia e onPress como props.
+
+RiskBadge
+Badge colorido que representa o nível de risco visualmente.
+
+Nivel    | Cor
+---------|----------
+Baixo    | Verde
+Medio    | Amarelo
+Alto     | Vermelho
+
+---
+
+## Stack utilizada
+
+Tecnologia              | Uso
+------------------------|----------------------------
+React Native            | Framework mobile
+Expo                    | Ambiente de desenvolvimento
+TypeScript              | Tipagem estatica
+React Navigation        | Navegacao entre telas
+React Context API       | Gerenciamento de estado
+
+---
+
+## Equipe
+
+Desenvolvido durante a Sprint 2 do projeto Motiva.
+
+---
+
+## Proximos passos
+
+- Persistência de dados com AsyncStorage
+- Filtro por nível de risco na lista
+- Edição e exclusão de ocorrências
+- Foto anexada à ocorrência
+- Integração com API real
+```
